@@ -1,0 +1,6 @@
+#excluded files
+
+.idea/
+*.xml
+out/
+*.iml
