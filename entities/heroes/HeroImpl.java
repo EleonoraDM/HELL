@@ -72,8 +72,8 @@ public abstract class HeroImpl implements Hero {
                 try {
                     Class<?> fieldType = declaredField.getType();
                     if (fieldType.equals(Map.class)) {
-                        Inventory instance = new HeroInventory();
-                        Map<String, Item> itemMap = (Map<String, Item>) declaredField.get(instance);
+                        //Inventory instance = new HeroInventory();
+                        Map<String, Item> itemMap = (Map<String, Item>) declaredField.get(this.inventory);
                         items = itemMap.values();
                     }
                 } catch (IllegalAccessException e) {
@@ -127,7 +127,9 @@ public abstract class HeroImpl implements Hero {
                 .append(String.format("###Intelligence: %d%n", this.getIntelligence()))
                 .append("###Items: ");
 
-        String itemsResult = this.getItems().stream().map(Item::getName).collect(Collectors.joining(", "));
+        Collection<Item> items = this.getItems();
+
+        String itemsResult = items.stream().map(Item::getName).collect(Collectors.joining(", "));
         builder.append(itemsResult);
 
         return builder.toString();

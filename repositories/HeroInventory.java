@@ -17,8 +17,8 @@ public class HeroInventory implements Inventory {
     private Map<String, Recipe> recipeItems;
 
     public HeroInventory() {
-        this.commonItems = new LinkedHashMap<String, Item>();
-        this.recipeItems = new LinkedHashMap<String, Recipe>();
+        this.commonItems = new LinkedHashMap<>();
+        this.recipeItems = new LinkedHashMap<>();
     }
 
     @Override
