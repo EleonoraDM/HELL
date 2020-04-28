@@ -20,7 +20,6 @@ public class RecipeItem extends ItemImpl implements Recipe {
 
     @Override
     public List<String> getRequiredItems() {
-        //TODO Implementation!!!
-        return null;
+        return Collections.unmodifiableList(this.requiredItems);
     }
 }

@@ -1,5 +1,6 @@
 package repositories;
 
+import entities.items.CommonItem;
 import entities.items.Item;
 import entities.items.Recipe;
 
@@ -57,14 +58,21 @@ public class HeroInventory implements Inventory {
         this.checkRecipes();
     }
 
+    /**
+    When a hero has all of the items that a RecipeItem requires,
+    those items are being removed from his inventory,
+    along with the recipe,
+    and a CommonItem is put on their place, with the stats of the RecipeItem.
+    As if the items have combined with the recipe in order to create a stronger item.
+     */
     private void checkRecipes() {
+
         for (Recipe recipe : this.recipeItems.values()) {
             List<String> requiredItems = new ArrayList<>(recipe.getRequiredItems());
 
             for (Item item : this.commonItems.values()) {
                 requiredItems.remove(item.getName());
             }
-
             if (requiredItems.isEmpty()) {
                 this.combineRecipe(recipe);
                 break;
@@ -78,12 +86,17 @@ public class HeroInventory implements Inventory {
             String item = recipe.getRequiredItems().get(i);
             this.commonItems.remove(item);
         }
-
         //TODO: Initialize the newItem variable, with an object of the CommonItem class.
         //TODO: Initialize the newItem variable, with the stat bonuses of the "recipe" parameter.
-        Item newItem = null;
+
+        Item newItem =new CommonItem(
+                recipe.getName(),
+                recipe.getStrengthBonus(),
+                recipe.getAgilityBonus(),
+                recipe.getIntelligenceBonus(),
+                recipe.getHitPointsBonus(),
+                recipe.getDamageBonus());
 
         this.commonItems.put(newItem.getName(), newItem);
     }
-
 }

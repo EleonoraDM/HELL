@@ -8,6 +8,7 @@ import repositories.ItemCollection;
 
 import java.lang.reflect.Field;
 import java.util.Collection;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public abstract class HeroImpl implements Hero {
@@ -23,7 +24,7 @@ public abstract class HeroImpl implements Hero {
     protected HeroImpl(String name) {
         this.name = name;
         this.inventory = new HeroInventory();
-        //TODO validations for all members!!!
+        //TODO validation for all members!!!
     }
 
     @Override
@@ -56,23 +57,24 @@ public abstract class HeroImpl implements Hero {
         return this.damage;
     }
 
-    //@SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked")
     @Override
 
     public Collection<Item> getItems() {
         //TODO Implementation - Implement the getItems() method of the Hero entities, with reflection.
-        Collection<Item> itemCollection = null;
+        Field commonItems = null;
+        Collection<Item> items = null;
+        ItemCollection annotation = this.inventory.getClass().getDeclaredAnnotation(ItemCollection.class);
 
         try {
-            Field commonItemsField = this.inventory.getClass().getDeclaredField("commonItems");
-            ItemCollection annotation = commonItemsField.getAnnotation(ItemCollection.class);
+            commonItems = annotation.annotationType().getDeclaredField("commonItems");
+            commonItems.setAccessible(true);
+            items = (Collection<Item>) commonItems.get(HeroInventory.class);
 
-        } catch (NoSuchFieldException e) {
+        } catch (NoSuchFieldException | IllegalAccessException e) {
             e.printStackTrace();
         }
-
-
-        return itemCollection;
+        return items;
     }
 
     protected void setStrength(int strength) {
