@@ -59,11 +59,11 @@ public class HeroInventory implements Inventory {
     }
 
     /**
-    When a hero has all of the items that a RecipeItem requires,
-    those items are being removed from his inventory,
-    along with the recipe,
-    and a CommonItem is put on their place, with the stats of the RecipeItem.
-    As if the items have combined with the recipe in order to create a stronger item.
+     * When a hero has all of the items that a RecipeItem requires,
+     * those items are being removed from his inventory,
+     * along with the recipe,
+     * and a CommonItem is put on their place, with the stats of the RecipeItem.
+     * As if the items have combined with the recipe in order to create a stronger item.
      */
     private void checkRecipes() {
 
@@ -89,7 +89,7 @@ public class HeroInventory implements Inventory {
         //TODO: Initialize the newItem variable, with an object of the CommonItem class.
         //TODO: Initialize the newItem variable, with the stat bonuses of the "recipe" parameter.
 
-        Item newItem =new CommonItem(
+        Item newItem = new CommonItem(
                 recipe.getName(),
                 recipe.getStrengthBonus(),
                 recipe.getAgilityBonus(),

@@ -11,6 +11,6 @@ public class Main {
                 0, 10, 0, 0, 30);
         hero.addItem(item);
 
-        System.out.println(hero.toString());
+        System.out.print(hero.toString());
     }
 }

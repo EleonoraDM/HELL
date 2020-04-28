@@ -6,6 +6,7 @@ import repositories.HeroInventory;
 import repositories.Inventory;
 import repositories.ItemCollection;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.Collection;
 import java.util.Map;
@@ -62,17 +63,23 @@ public abstract class HeroImpl implements Hero {
 
     public Collection<Item> getItems() {
         //TODO Implementation - Implement the getItems() method of the Hero entities, with reflection.
-        Field commonItems = null;
         Collection<Item> items = null;
-        ItemCollection annotation = this.inventory.getClass().getDeclaredAnnotation(ItemCollection.class);
 
-        try {
-            commonItems = annotation.annotationType().getDeclaredField("commonItems");
-            commonItems.setAccessible(true);
-            items = (Collection<Item>) commonItems.get(HeroInventory.class);
-
-        } catch (NoSuchFieldException | IllegalAccessException e) {
-            e.printStackTrace();
+        Field[] declaredFields = HeroInventory.class.getDeclaredFields();
+        for (Field declaredField : declaredFields) {
+            if (declaredField.isAnnotationPresent(ItemCollection.class)) {
+                declaredField.setAccessible(true);
+                try {
+                    Class<?> fieldType = declaredField.getType();
+                    if (fieldType.equals(Map.class)) {
+                        Inventory instance = new HeroInventory();
+                        Map<String, Item> itemMap = (Map<String, Item>) declaredField.get(instance);
+                        items = itemMap.values();
+                    }
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            }
         }
         return items;
     }
