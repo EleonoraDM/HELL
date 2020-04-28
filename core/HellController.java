@@ -4,11 +4,13 @@ public interface HellController {
 
     String createHero(String heroName, String heroType);
 
-    String addItem(String name,
+    String addItem(String itemType,
+                   String name,
                    String heroName,
                    String... parameters);
 
-    String addRecipeItem(String name,
+    String addRecipeItem(String itemType,
+                         String name,
                          String heroName,
                          String... parameters);
 

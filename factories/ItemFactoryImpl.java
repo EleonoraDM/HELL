@@ -11,7 +11,7 @@ import java.util.Arrays;
 public class ItemFactoryImpl implements ItemFactory {
 
     @Override
-    public Object create(String name, String heroName, String... parameters) {
+    public Object create(String itemType, String name, String heroName, String... parameters) {
 
 
         Object item = null;
@@ -22,14 +22,14 @@ public class ItemFactoryImpl implements ItemFactory {
         int hitPointsBonus = Integer.parseInt(parameters[3]);
         int damageBonus = Integer.parseInt(parameters[4]);
 
-        if (name.equals(Item.class.getSimpleName())) {
+        if (itemType.equals(Item.class.getSimpleName())) {
 
             item = new CommonItem(heroName, strengthBonus, agilityBonus, intelligenceBonus, hitPointsBonus,
                     damageBonus);
 
-        } else if (name.equals(Recipe.class.getSimpleName())) {
+        } else if (itemType.equals(Recipe.class.getSimpleName())) {
 
-            String[] requiredItems = Arrays.copyOfRange(parameters, 5, parameters.length - 1);
+            String[] requiredItems = Arrays.copyOfRange(parameters, 5, parameters.length);
 
             item = new RecipeItem(heroName, strengthBonus, agilityBonus, intelligenceBonus, hitPointsBonus,
                     damageBonus,

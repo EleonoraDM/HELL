@@ -19,7 +19,7 @@ public class InputReaderImpl implements InputReader {
 
             String[] tokens = this.reader.readLine().split("\\s+");
             String command = tokens[0];
-            String[] data = Arrays.copyOfRange(tokens, 1, tokens.length - 1);
+            String[] data = Arrays.copyOfRange(tokens, 1, tokens.length);
 
         return this.processor.execute(command, data);
     }

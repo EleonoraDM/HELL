@@ -13,6 +13,7 @@ import repositories.HeroRepository;
 import repositories.HeroRepositoryImpl;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -37,8 +38,8 @@ public class HellControllerImpl implements HellController {
     }
 
     @Override
-    public String addItem(String name, String heroName, String... parameters) {
-        Item item = ((CommonItem) this.itemFactory.create(name, heroName, parameters));
+    public String addItem(String itemType, String name, String heroName, String... parameters) {
+        Item item = ((CommonItem) this.itemFactory.create(itemType, name, heroName, parameters));
         Hero hero = this.heroRepository.getByName(heroName);
         hero.addItem(item);
 
@@ -46,12 +47,9 @@ public class HellControllerImpl implements HellController {
     }
 
     @Override
-    public String addRecipeItem(
-            String name,
-            String heroName,
-            String... parameters) {
+    public String addRecipeItem(String itemType, String name, String heroName, String... parameters) {
 
-        Recipe item = ((Recipe) this.itemFactory.create(name, heroName, parameters));
+        Recipe item = ((Recipe) this.itemFactory.create(itemType, name, heroName, parameters));
         Hero hero = this.heroRepository.getByName(heroName);
         hero.addRecipe(item);
 
@@ -94,7 +92,7 @@ public class HellControllerImpl implements HellController {
     public String reportHeroes() {
         StringBuilder builder = new StringBuilder();
 
-        List<Hero> heroes = ((ArrayList<Hero>) this.heroRepository.getAll());
+        Collection<Hero> heroes = this.heroRepository.getAll();
 
         Comparator<Hero> comparator = Comparator.comparing(hero -> {
                     return hero.getStrength() + hero.getAgility() + hero.getIntelligence();

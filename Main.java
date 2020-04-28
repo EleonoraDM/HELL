@@ -1,16 +1,16 @@
-import entities.heroes.Barbarian;
-import entities.heroes.Hero;
-import entities.items.CommonItem;
-import entities.items.Item;
+import core.Engine;
+import core.EngineImpl;
+
+import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) {
 
-        Hero hero = new Barbarian("Ivan");
-        Item item = new CommonItem("Knife",
-                0, 10, 0, 0, 30);
-        hero.addItem(item);
-
-        System.out.print(hero.toString());
+        Engine engine = new EngineImpl();
+        try {
+            engine.run();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
