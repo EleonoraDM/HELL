@@ -1,5 +1,6 @@
 package entities.heroes;
 
+import common.OutputMessages;
 import entities.items.Item;
 import entities.items.Recipe;
 import repositories.HeroInventory;
@@ -72,7 +73,6 @@ public abstract class HeroImpl implements Hero {
                 try {
                     Class<?> fieldType = declaredField.getType();
                     if (fieldType.equals(Map.class)) {
-                        //Inventory instance = new HeroInventory();
                         Map<String, Item> itemMap = (Map<String, Item>) declaredField.get(this.inventory);
                         items = itemMap.values();
                     }
@@ -107,6 +107,7 @@ public abstract class HeroImpl implements Hero {
     @Override
     public void addItem(Item item) {
         this.inventory.addCommonItem(item);
+
     }
 
     @Override
@@ -129,9 +130,12 @@ public abstract class HeroImpl implements Hero {
 
         Collection<Item> items = this.getItems();
 
-        String itemsResult = items.stream().map(Item::getName).collect(Collectors.joining(", "));
-        builder.append(itemsResult);
-
+        if (items.isEmpty()) {
+            builder.append("None");
+        } else {
+            String itemsResult = items.stream().map(Item::getName).collect(Collectors.joining(", "));
+            builder.append(itemsResult);
+        }
         return builder.toString();
     }
 }

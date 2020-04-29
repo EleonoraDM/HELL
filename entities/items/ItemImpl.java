@@ -9,11 +9,7 @@ public abstract class ItemImpl implements Item {
     private int damageBonus;
 
     protected ItemImpl(
-            String name,
-            int strengthBonus,
-            int agilityBonus,
-            int intelligenceBonus,
-            int hitPointsBonus,
+            String name, int strengthBonus, int agilityBonus, int intelligenceBonus, int hitPointsBonus,
             int damageBonus) {
         this.name = name;
         this.strengthBonus = strengthBonus;
@@ -60,14 +56,20 @@ public abstract class ItemImpl implements Item {
         StringBuilder builder = new StringBuilder();
 
         builder
-                .append("Items:%n")
-                .append(String.format("###Item: %s%n", this.getName()))
-                .append(String.format("###+%d Strength%n", this.getStrengthBonus()))
-                .append(String.format("###+%d Agility%n", this.getAgilityBonus()))
-                .append(String.format("###+%d Intelligence%n", this.getIntelligenceBonus()))
-                .append(String.format("###+%d HitPoints%n", this.getHitPointsBonus()))
-                .append(String.format("###+%d Damage%n", this.getDamageBonus()));
+                .append("Items:")
+                .append(System.lineSeparator())
+                .append(String.format("###Item: %s", this.getName()))
+                .append(System.lineSeparator())
+                .append(String.format("###+%d Strength", this.getStrengthBonus()))
+                .append(System.lineSeparator())
+                .append(String.format("###+%d Agility", this.getAgilityBonus()))
+                .append(System.lineSeparator())
+                .append(String.format("###+%d Intelligence", this.getIntelligenceBonus()))
+                .append(System.lineSeparator())
+                .append(String.format("###+%d HitPoints", this.getHitPointsBonus()))
+                .append(System.lineSeparator())
+                .append(String.format("###+%d Damage", this.getDamageBonus()));
 
-        return super.toString();
+        return builder.toString();
     }
 }

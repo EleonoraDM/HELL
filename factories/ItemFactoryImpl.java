@@ -24,14 +24,14 @@ public class ItemFactoryImpl implements ItemFactory {
 
         if (itemType.equals(Item.class.getSimpleName())) {
 
-            item = new CommonItem(heroName, strengthBonus, agilityBonus, intelligenceBonus, hitPointsBonus,
+            item = new CommonItem(name, strengthBonus, agilityBonus, intelligenceBonus, hitPointsBonus,
                     damageBonus);
 
         } else if (itemType.equals(Recipe.class.getSimpleName())) {
 
             String[] requiredItems = Arrays.copyOfRange(parameters, 5, parameters.length);
 
-            item = new RecipeItem(heroName, strengthBonus, agilityBonus, intelligenceBonus, hitPointsBonus,
+            item = new RecipeItem(name, strengthBonus, agilityBonus, intelligenceBonus, hitPointsBonus,
                     damageBonus,
                     requiredItems);
         } else {

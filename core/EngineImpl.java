@@ -23,10 +23,15 @@ public class EngineImpl implements Engine {
         while (true) {
             String result = null;
 
-            result = this.reader.readLine();
+            try {
+                result = this.reader.readLine();
 
-            if (result.equals(Commands.QUIT.name())) {
-                break;
+                if (result.equals(Commands.QUIT.name())) {
+                    break;
+                }
+
+            } catch (IOException e) {
+                result = e.getMessage();
             }
             this.writer.writeLine(result);
         }
