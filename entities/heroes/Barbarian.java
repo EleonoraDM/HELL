@@ -1,21 +1,19 @@
 package entities.heroes;
 
+import common.Config;
+
 public class Barbarian extends HeroImpl {
-    private static final int STRENGTH = 90;
-    private static final int AGILITY = 25;
-    private static final int INTELLIGENCE = 10;
-    private static final int HIT_POINTS = 350;
-    private static final int DAMAGE = 150;
 
 
     public Barbarian(String name) {
         super(name);
-        this.setStrength(STRENGTH);
-        this.setAgility(AGILITY);
-        this.setIntelligence(INTELLIGENCE);
-        this.setHitPoints(HIT_POINTS);
-        this.setDamage(DAMAGE);
+        this.setStrength(Config.BARBARIAN_DEFAULT_STRENGTH);
+        this.setAgility(Config.BARBARIAN_DEFAULT_AGILITY);
+        this.setIntelligence(Config.BARBARIAN_DEFAULT_INTELLIGENCE);
+        this.setHitPoints(Config.BARBARIAN_DEFAULT_HIT_POINTS);
+        this.setDamage(Config.BARBARIAN_DEFAULT_DAMAGE);
     }
+
 
 
 }

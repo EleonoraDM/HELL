@@ -1,19 +1,15 @@
 package entities.heroes;
 
-public class Wizard extends HeroImpl {
-    private static final int STRENGTH = 25;
-    private static final int AGILITY = 25;
-    private static final int INTELLIGENCE = 100;
-    private static final int HIT_POINTS = 100;
-    private static final int DAMAGE = 250;
+import common.Config;
 
+public class Wizard extends HeroImpl {
 
     public Wizard(String name) {
         super(name);
-        this.setStrength(STRENGTH);
-        this.setAgility(AGILITY);
-        this.setIntelligence(INTELLIGENCE);
-        this.setHitPoints(HIT_POINTS);
-        this.setDamage(DAMAGE);
+        this.setStrength(Config.WIZARD_DEFAULT_STRENGTH);
+        this.setAgility(Config.WIZARD_DEFAULT_AGILITY);
+        this.setIntelligence(Config.WIZARD_DEFAULT_INTELLIGENCE);
+        this.setHitPoints(Config.WIZARD_DEFAULT_HIT_POINTS);
+        this.setDamage(Config.WIZARD_DEFAULT_DAMAGE);
     }
 }

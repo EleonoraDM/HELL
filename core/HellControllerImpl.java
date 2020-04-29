@@ -92,7 +92,7 @@ public class HellControllerImpl implements HellController {
     public String reportHeroes() {
         StringBuilder builder = new StringBuilder();
 
-        List<Hero> heroes = ((ArrayList<Hero>) this.heroRepository.getAll());
+        Collection<Hero> heroes = this.heroRepository.getAll();
 
         Comparator<Hero> comparator =
                 Comparator.comparing(hero -> hero.getStrength() + hero.getAgility() + hero.getIntelligence()
@@ -100,7 +100,7 @@ public class HellControllerImpl implements HellController {
         comparator = comparator.thenComparing(hero -> hero.getHitPoints() + hero.getDamage());
 
         List<Hero> sortedHeroes = heroes.stream().sorted(comparator.reversed()).collect(Collectors.toList());
-        sortedHeroes.forEach(hero -> builder.append(hero.toString()));
+        sortedHeroes.forEach(hero -> builder.append(hero.toString()).append(System.lineSeparator()));
 
         return builder.toString();
     }

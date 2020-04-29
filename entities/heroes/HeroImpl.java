@@ -107,12 +107,35 @@ public abstract class HeroImpl implements Hero {
     @Override
     public void addItem(Item item) {
         this.inventory.addCommonItem(item);
+        this.increaseStats(item);
+    }
 
+    private void increaseStats(Item item) {
+        this.setStrength((int) (this.getStrength() + item.getStrengthBonus()));
+        this.setAgility((int) (this.getAgility() + item.getAgilityBonus()));
+        this.setIntelligence((int) (this.getIntelligence() + item.getIntelligenceBonus()));
+        this.setHitPoints((int) (this.getHitPoints() + item.getHitPointsBonus()));
+        this.setDamage((int) (this.getDamage() + item.getDamageBonus()));
     }
 
     @Override
     public void addRecipe(Recipe recipe) {
         this.inventory.addRecipeItem(recipe);
+
+        Collection<Item> items = this.getItems();
+        for (Item item : items) {
+            if (item.getName().equals(recipe.getName())) {
+                this.setNewStats(recipe);
+            }
+        }
+    }
+
+    private void setNewStats(Recipe recipe) {
+        this.setStrength((int) (this.inventory.getTotalStrengthBonus() + this.getStrength()));
+        this.setAgility((int) (this.inventory.getTotalAgilityBonus() + this.getAgility()));
+        this.setIntelligence((int) (this.inventory.getTotalIntelligenceBonus() + this.getIntelligence()));
+        this.setHitPoints((int) (this.inventory.getTotalHitPointsBonus() + this.getHitPoints()));
+        this.setDamage((int) (this.inventory.getTotalDamageBonus() + this.getDamage()));
     }
 
     @Override

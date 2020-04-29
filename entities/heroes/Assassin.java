@@ -1,19 +1,17 @@
 package entities.heroes;
 
+import common.Config;
+
 public class Assassin extends HeroImpl {
-    private static final int STRENGTH = 25;
-    private static final int AGILITY = 100;
-    private static final int INTELLIGENCE = 15;
-    private static final int HIT_POINTS = 150;
-    private static final int DAMAGE = 300;
 
 
     public Assassin(String name) {
         super(name);
-        this.setStrength(STRENGTH);
-        this.setAgility(AGILITY);
-        this.setIntelligence(INTELLIGENCE);
-        this.setHitPoints(HIT_POINTS);
-        this.setDamage(DAMAGE);
+        this.setStrength(Config.ASSASSIN_DEFAULT_STRENGTH);
+        this.setAgility(Config.ASSASSIN_DEFAULT_AGILITY);
+        this.setIntelligence(Config.ASSASSIN_DEFAULT_INTELLIGENCE);
+        this.setHitPoints(Config.ASSASSIN_DEFAULT_HIT_POINTS);
+        this.setDamage(Config.ASSASSIN_DEFAULT_DAMAGE);
     }
+
 }

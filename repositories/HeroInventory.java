@@ -46,6 +46,8 @@ public class HeroInventory implements Inventory {
         return this.commonItems.values().stream().mapToInt(Item::getDamageBonus).sum();
     }
 
+
+
     @Override
     public void addCommonItem(Item item) {
         this.commonItems.put(item.getName(), item);
@@ -85,6 +87,7 @@ public class HeroInventory implements Inventory {
         for (int i = 0; i < recipe.getRequiredItems().size(); i++) {
             String item = recipe.getRequiredItems().get(i);
             this.commonItems.remove(item);
+
         }
         //TODO: Initialize the newItem variable, with an object of the CommonItem class.
         //TODO: Initialize the newItem variable, with the stat bonuses of the "recipe" parameter.
@@ -98,6 +101,7 @@ public class HeroInventory implements Inventory {
                 recipe.getDamageBonus());
 
         this.commonItems.put(newItem.getName(), newItem);
+
         this.recipeItems.remove(recipe.getName());
     }
 }
