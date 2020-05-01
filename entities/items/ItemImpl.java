@@ -1,5 +1,7 @@
 package entities.items;
 
+import common.ExceptionMessages;
+
 public abstract class ItemImpl implements Item {
     private String name;
     private int strengthBonus;
@@ -11,15 +13,55 @@ public abstract class ItemImpl implements Item {
     protected ItemImpl(
             String name, int strengthBonus, int agilityBonus, int intelligenceBonus, int hitPointsBonus,
             int damageBonus) {
-        this.name = name;
-        this.strengthBonus = strengthBonus;
-        this.agilityBonus = agilityBonus;
-        this.intelligenceBonus = intelligenceBonus;
-        this.hitPointsBonus = hitPointsBonus;
-        this.damageBonus = damageBonus;
-        //TODO validations for all fields!!!
+        this.setName(name);
+        this.setStrengthBonus(strengthBonus);
+        this.setAgilityBonus(agilityBonus);
+        this.setIntelligenceBonus(intelligenceBonus);
+        this.setHitPointsBonus(hitPointsBonus);
+        this.setDamageBonus(damageBonus);
     }
 
+    private void setName(String name) {
+        if (name == null || name.trim().isEmpty()){
+            throw new NullPointerException(ExceptionMessages.INVALID_ITEM_NAME);
+        }
+        this.name = name;
+    }
+
+    private void setStrengthBonus(int strengthBonus) {
+        if (strengthBonus < 0){
+            throw new NullPointerException(ExceptionMessages.INVALID_STRENGTH);
+        }
+        this.strengthBonus = strengthBonus;
+    }
+
+    private void setAgilityBonus(int agilityBonus) {
+        if (agilityBonus < 0){
+            throw new NullPointerException(ExceptionMessages.INVALID_AGILITY);
+        }
+        this.agilityBonus = agilityBonus;
+    }
+
+    private void setIntelligenceBonus(int intelligenceBonus) {
+        if (intelligenceBonus < 0){
+            throw new NullPointerException(ExceptionMessages.INVALID_INTELLIGENCE);
+        }
+        this.intelligenceBonus = intelligenceBonus;
+    }
+
+    private void setHitPointsBonus(int hitPointsBonus) {
+        if (hitPointsBonus < 0){
+            throw new NullPointerException(ExceptionMessages.INVALID_HIT_POINTS);
+        }
+        this.hitPointsBonus = hitPointsBonus;
+    }
+
+    private void setDamageBonus(int damageBonus) {
+        if (damageBonus < 0){
+            throw new NullPointerException(ExceptionMessages.INVALID_DAMAGE);
+        }
+        this.damageBonus = damageBonus;
+    }
 
     @Override
     public String getName() {

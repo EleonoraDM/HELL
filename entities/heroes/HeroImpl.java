@@ -1,5 +1,6 @@
 package entities.heroes;
 
+import common.ExceptionMessages;
 import entities.items.Item;
 import entities.items.Recipe;
 import repositories.HeroInventory;
@@ -22,9 +23,16 @@ public abstract class HeroImpl implements Hero {
 
 
     protected HeroImpl(String name) {
-        this.name = name;
+        this.setName(name);
         this.inventory = new HeroInventory();
         //TODO validation for all members!!!
+    }
+
+    private void setName(String name) {
+        if (name == null || name.trim().isEmpty()) {
+            throw new NullPointerException(ExceptionMessages.INVALID_HERO_NAME);
+        }
+        this.name = name;
     }
 
     @Override
