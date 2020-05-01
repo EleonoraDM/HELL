@@ -1,13 +1,11 @@
 package entities.heroes;
 
-import common.OutputMessages;
 import entities.items.Item;
 import entities.items.Recipe;
 import repositories.HeroInventory;
 import repositories.Inventory;
 import repositories.ItemCollection;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.Collection;
 import java.util.Map;
@@ -58,6 +56,8 @@ public abstract class HeroImpl implements Hero {
     public long getDamage() {
         return this.damage;
     }
+
+    abstract void setDefaultStats();
 
     @SuppressWarnings("unchecked")
     @Override
@@ -125,12 +125,13 @@ public abstract class HeroImpl implements Hero {
         Collection<Item> items = this.getItems();
         for (Item item : items) {
             if (item.getName().equals(recipe.getName())) {
-                this.setNewStats(recipe);
+                this.setDefaultStats();
+                this.setNewStats();
             }
         }
     }
 
-    private void setNewStats(Recipe recipe) {
+    private void setNewStats() {
         this.setStrength((int) (this.inventory.getTotalStrengthBonus() + this.getStrength()));
         this.setAgility((int) (this.inventory.getTotalAgilityBonus() + this.getAgility()));
         this.setIntelligence((int) (this.inventory.getTotalIntelligenceBonus() + this.getIntelligence()));

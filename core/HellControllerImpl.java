@@ -96,11 +96,15 @@ public class HellControllerImpl implements HellController {
 
         Comparator<Hero> comparator =
                 Comparator.comparing(hero -> hero.getStrength() + hero.getAgility() + hero.getIntelligence()
-        );
+                );
         comparator = comparator.thenComparing(hero -> hero.getHitPoints() + hero.getDamage());
 
         List<Hero> sortedHeroes = heroes.stream().sorted(comparator.reversed()).collect(Collectors.toList());
-        sortedHeroes.forEach(hero -> builder.append(hero.toString()).append(System.lineSeparator()));
+
+        sortedHeroes.forEach(hero -> builder
+                .append(String.format("%d. ", (sortedHeroes.indexOf(hero) + 1)))
+                .append(hero.toString())
+                .append(System.lineSeparator()));
 
         return builder.toString();
     }

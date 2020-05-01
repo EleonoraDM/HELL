@@ -14,6 +14,14 @@ public class Barbarian extends HeroImpl {
         this.setDamage(Config.BARBARIAN_DEFAULT_DAMAGE);
     }
 
+    @Override
+    void setDefaultStats() {
+        this.setStrength(Config.BARBARIAN_DEFAULT_STRENGTH);
+        this.setAgility(Config.BARBARIAN_DEFAULT_AGILITY);
+        this.setIntelligence(Config.BARBARIAN_DEFAULT_INTELLIGENCE);
+        this.setHitPoints(Config.BARBARIAN_DEFAULT_HIT_POINTS);
+        this.setDamage(Config.BARBARIAN_DEFAULT_DAMAGE);
+    }
 
 
 }
