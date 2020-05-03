@@ -1,52 +1,37 @@
 package io;
 
+import commands.*;
 import common.Commands;
 import common.ExceptionMessages;
-import core.HellController;
-import core.HellControllerImpl;
+import factories.*;
+import repositories.HeroRepository;
+import repositories.HeroRepositoryImpl;
 
-import java.util.Arrays;
+import java.util.Collection;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class CommandProcessorImpl implements CommandProcessor {
-    private HellController controller;
+    private CommandFactory commandFactory;
+
+    private Map<String, Command> commands;
 
     public CommandProcessorImpl() {
-        this.controller = new HellControllerImpl();
+        this.commandFactory = new CommandFactoryImpl();
+        this.commands = new LinkedHashMap<>();
     }
 
     @Override
-    public String execute(String command, String... parameters) {
-        String result = "";
-        String heroName = null;
-        String[] stats = null;
+    public void setCommand(String commandName, String... parameters) {
+        Command command = this.commandFactory.createCommand(commandName, parameters);
+        this.commands.put(commandName, command);
+    }
 
-        if (command.toUpperCase().equals(Commands.HERO.name())) {
-            heroName = parameters[0];
-            String heroType = parameters[1];
-            result = this.controller.createHero(heroName, heroType);
-
-        } else if (command.toUpperCase().equals(Commands.ITEM.name())) {
-            String itemName = parameters[0];
-            heroName = parameters[1];
-            stats = Arrays.copyOfRange(parameters, 2, parameters.length);
-            result = this.controller.addItem(command, itemName, heroName, stats);
-
-        } else if (command.toUpperCase().equals(Commands.RECIPE.name())) {
-            String recipeName = parameters[0];
-            heroName = parameters[1];
-            stats = Arrays.copyOfRange(parameters, 2, parameters.length);
-            result = this.controller.addRecipeItem(command, recipeName, heroName, stats);
-
-        } else if (command.toUpperCase().equals(Commands.INSPECT.name())) {
-            heroName = parameters[0];
-            result = this.controller.inspectHero(heroName);
-
-        } else if (command.toUpperCase().equals(Commands.QUIT.name())) {
-            result = this.controller.reportHeroes();
-
-        } else {
-            throw new IllegalArgumentException(ExceptionMessages.INVALID_COMMAND);
-        }
+    @Override
+    public String invoke(String commandName) {
+        String result = this.commands.get(commandName).execute();
         return result;
     }
+
+
 }

@@ -1,5 +1,8 @@
 package io;
 
 public interface CommandProcessor {
-    String execute(String command, String... parameters);
+
+    void setCommand(String command, String... parameters);
+
+    String invoke(String commandName);
 }

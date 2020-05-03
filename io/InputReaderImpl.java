@@ -21,6 +21,7 @@ public class InputReaderImpl implements InputReader {
             String command = tokens[0];
             String[] data = Arrays.copyOfRange(tokens, 1, tokens.length);
 
-        return this.processor.execute(command, data);
+        this.processor.setCommand(command, data);
+        return this.processor.invoke(command);
     }
 }
