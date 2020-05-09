@@ -5,25 +5,23 @@ import entities.heroes.Hero;
 import factories.HeroFactory;
 import repositories.HeroRepository;
 
-public class CreateHeroCommand implements Command {
-    private HeroFactory heroFactory;
-    private HeroRepository heroRepository;
+public class CreateHeroCommand extends CommandImpl {
 
-    private String[] params;
-
-    public CreateHeroCommand(HeroFactory heroFactory, HeroRepository heroRepository, String...parameters) {
-        this.heroFactory = heroFactory;
-        this.heroRepository = heroRepository;
-        this.params = parameters;
+    public CreateHeroCommand(HeroFactory heroFactory, HeroRepository heroRepository,
+                             String[] parameters) {
+        super(parameters);
+        this.setHeroFactory(heroFactory);
+        this.setHeroRepository(heroRepository);
     }
 
     @Override
     public String execute() {
-        String heroName = this.params[0];
-        String heroType = this.params[1];
+        String[] parameters = this.getParameters();
+        String heroName = parameters[0];
+        String heroType = parameters[1];
 
-        Hero hero = this.heroFactory.create(heroName, heroType);
-        this.heroRepository.addHero(hero);
+        Hero hero = this.getHeroFactory().create(heroName, heroType);
+        this.getHeroRepository().addHero(hero);
 
         return String.format(OutputMessages.HERO_CREATED, heroType, heroName);
     }

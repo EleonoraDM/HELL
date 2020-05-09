@@ -4,23 +4,21 @@ import common.OutputMessages;
 import entities.heroes.Hero;
 import repositories.HeroRepository;
 
-public class InspectHeroCommand implements Command {
-    private HeroRepository heroRepository;
+public class InspectHeroCommand extends CommandImpl {
 
-    private String[] params;
-
-    public InspectHeroCommand(HeroRepository heroRepository, String...parameters) {
-        this.heroRepository = heroRepository;
-        this.params = parameters;
+    public InspectHeroCommand(HeroRepository heroRepository,
+                              String[] parameters) {
+        super(parameters);
+        this.setHeroRepository(heroRepository);
     }
 
     @Override
     public String execute() {
-        String name = this.params[0];
+        String name = this.getParameters()[0];
 
         StringBuilder builder = new StringBuilder();
 
-        Hero hero = this.heroRepository.getByName(name);
+        Hero hero = this.getHeroRepository().getByName(name);
         builder
                 .append(String.format("Hero: %s, Class: %s", hero.getName(), hero.getClass().getSimpleName()))
                 .append(System.lineSeparator())

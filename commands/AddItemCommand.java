@@ -9,29 +9,29 @@ import repositories.HeroRepository;
 
 import java.util.Arrays;
 
-public class AddItemCommand implements Command {
-    private ItemFactory itemFactory;
-    private HeroRepository heroRepository;
-
-    private String[] params;
+public class AddItemCommand extends CommandImpl {
 
 
-    public AddItemCommand(ItemFactory itemFactory, HeroRepository heroRepository, String...parameters) {
-        this.itemFactory = itemFactory;
-        this.heroRepository = heroRepository;
-        this.params = parameters;
+    public AddItemCommand(ItemFactory itemFactory,
+                          HeroRepository heroRepository,
+                          String[] parameters) {
+        super(parameters);
+        this.setHeroRepository(heroRepository);
+        this.setItemFactory(itemFactory);
     }
 
     @Override
     public String execute() {
         String itemType = Item.class.getSimpleName();
-        String name = this.params[0];
-        String heroName = this.params[1];
-        String[] stats = Arrays.copyOfRange(this.params, 2, this.params.length);
+
+        String[] parameters = this.getParameters();
+        String name = parameters[0];
+        String heroName = parameters[1];
+        String[] stats = Arrays.copyOfRange(parameters, 2, parameters.length);
 
 
-        Item item = ((CommonItem) this.itemFactory.create(itemType, name, heroName, stats));
-        Hero hero = this.heroRepository.getByName(heroName);
+        Item item = ((CommonItem) this.getItemFactory().create(itemType, name, heroName, stats));
+        Hero hero = this.getHeroRepository().getByName(heroName);
         hero.addItem(item);
 
         return String.format(OutputMessages.ITEM_ADDED, name, heroName);

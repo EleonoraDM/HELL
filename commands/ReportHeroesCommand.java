@@ -8,18 +8,17 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ReportHeroesCommand implements Command {
-    private HeroRepository heroRepository;
+public class ReportHeroesCommand extends CommandImpl {
 
     public ReportHeroesCommand(HeroRepository heroRepository) {
-        this.heroRepository = heroRepository;
+        this.setHeroRepository(heroRepository);
     }
 
     @Override
     public String execute() {
         StringBuilder builder = new StringBuilder();
 
-        Collection<Hero> heroes = this.heroRepository.getAll();
+        Collection<Hero> heroes = this.getHeroRepository().getAll();
 
         Comparator<Hero> comparator =
                 Comparator.comparing(hero -> hero.getStrength() + hero.getAgility() + hero.getIntelligence()
